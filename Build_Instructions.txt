@@ -1,0 +1,54 @@
+NNNN   NNNN   OOOOOOO     AAAAAA      AAAAAA
+NNNNN  NNNN  OOOOOOOOO   AAAAAAAA    AAAAAAAA
+NNNNNN NNNN  OOO   OOO  AAA    AAA  AAA    AAA
+NNNN NNNNNN  OOO   OOO  AAAAAAAAAA  AAAAAAAAAA
+NNNN  NNNNN  OOOOOOOOO  AAA    AAA  AAA    AAA
+NNNN   NNNN   OOOOOOO   AAA    AAA  AAA    AAA
+
+Project: EVCSO Valve Control
+
+Description: Open and Close an EVSCO valve based on geographical position in relation to ports within a database.
+		The valve should open in open ocean, and close when it gets within range of a port in the database.
+		The valve can be controlled remotely over the network using a web server.
+
+Hardware: The project requires an EVSCO S2-PP-RE13 valve, a Raspberry Pi, an 8 GB SD Card, and an ethernet cable
+	The valve is necessary because it is going to be controlled to keep instruments from getting contaminated by polluted port water.
+	The Raspberry pi will be running the programs that control the valve as well as hosting the apache web server.
+	The 8GB SD Card serves as the Raspberry pi's hard drive and will hold all of the programs
+	The Ethernet cable will connect the Pi to the network to make the web server accessible remotely so that the valve can be controlled by any computer on the network.
+Software:
+	Xubuntu: An operating system for the user to interact with the hardware
+	Editors:
+		nano (very basic editor)
+		leafpad (optional)
+		gedit (optional)
+		IDLE: Python Editor (recommended)
+	Python: The language that controls the valve. This downloads the necessary libraries for the Pi to understand and execute the code.
+	PHP 5: This is the language that runs the web server.
+	SQLite: This comes with PHP 5, but it is important to be sure to have
+	SQLite GUI: This allows one to visually edit the database.
+	Apache2:This is the web server that is going to operate the site
+	Git: this will allow you to pull the necessary files from their remote location on the GitHub repository.
+Files:
+	index.php: This is the homepage for the web server. It has options to open/close the valve as well as view/edit the database of ports.
+	database.php: This is the webpage that allows one to view the database of ports remotely.
+	edit_database.php: This is the webpage that allows one to edit the database of ports remotely. Ports can be added, changed, or deleted.
+	raspiValveControl.py: This is the python file that runs the gps coordinates and compares them to port locations to open and close the valve according to position.
+	newRaspiValveControl.py: a documented version of raspiValveControl.py that may or may not work
+	open.py: This file simply opens the valve. It is called in index.php.
+	Close.py: This file simplu closes the valve. It is called in index.php.
+	portLocations.db: This is the SQLite database that contains the ports, their latitudes, longitudes and the radii in which the valve should be closed. 
+	haversine.py:A file that the other python programs use to operate.
+	openSocketTest.py, EvscoValveControl.py.bak, EvscoValveControl.py, test.py, raspiValveControl.py.bak, true.py, EvscoValveControl.pyc, false.py, raspiValveControl.pyy, sqliteTest.py, close1, haversine.pyc: possibly important files
+
+Possible Necessary Changes to files:
+	The files interact with each other based on file name as well as their individual and unique file paths.
+	It may be necessary to alter the file paths used in the code based on where the called files are stored in the new version of the project that one makes.
+	The files that may need altering are:
+		index.php
+		database.php
+		edit_database.php
+		raspiValveControl.py
+		newRaspiValveControl.py
+	The files have certain  lines that contain a file path (ex: /var/www/portLocations.db) that may need adjustment. Simply change the path. This can be found in the file's properties.
+
