@@ -9,6 +9,7 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 <!DOCTYPE html>
 <html>
 	<head>
+<!--This is an editable version of the database. One can edit existing port information, add new information, and delete ports-->
 		<meta charset="UTF-8">
 		<title>Port Database</title>
 		<style>
@@ -45,7 +46,6 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 				padding-bottom:30px;
 			}
 		</style>
-
 	</head>
 	<body>
 		<div data-role="page" >
@@ -59,6 +59,7 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 				</ul>
 				<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
 					<?php
+//This file name needs to be changed accoring to the file's individual path on the computer.
 						$db = new SQLite3("/var/www/portLocations.db");
 						$result= $db->query("SELECT * FROM port_locations");
 						$products=array();
@@ -72,7 +73,6 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 							$updated="UPDATE port_locations SET de_lete='" . $i . "' WHERE key='" . $i . "'";
 							$db->exec($updated);
 //These are the posts for the exiting cells that will replace the current information
-							
 						}//end of while that creates table
 						echo"<tr><td><input type='text' name='addPort' placeholder='Add Port'></input></td><td><input name='addLat' type='text' placeholder='Add Latitude'></input></td><td><input name='addLon' type'text' placeholder='Add Longitude'></input></td><td><input name='addRadius' type='text' placeholder='Add Radius'></input></td></tr>";
 						echo"</table>";
@@ -90,7 +90,6 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 						$newlat= $_POST['addLat'];
 						$newlon= $_POST['addLon'];
 						$newradius= $_POST['addRadius'];
-
 //This adds a new row (whether or not the "add ---" is filled). I need to figure out how to limit it to only update if it is filled.
 						if(isset($_POST['submitPorts'])){
 							$testport=$_POST['addPort'];
@@ -129,7 +128,6 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 									echo"<meta http-equiv='refresh' content='0'>";
 								}
 							}//end of else
-							
 						}//end of port submission
 						if(isset($_POST['editPorts'])){
 //This SHOULD replace the information within the db with the info in the form, but it just clears the cell in the database
@@ -182,8 +180,8 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 										$db->exec($update3);
 										echo"<meta http-equiv='refresh' content='0'>";
 									}//end of else
-								}//end of else					
-							}//en of while
+								}//end of else
+							}//end of while
 
 
 						}//end of port editing
@@ -200,7 +198,6 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 								$db->exec("DELETE FROM port_locations WHERE de_lete='" . $deleted . "'");
 								echo"<meta http-equiv='refresh' content='0'>";
 							}//end of while
-							
 						}//end of delete
 					?><!--end of php-->
 					<ul>

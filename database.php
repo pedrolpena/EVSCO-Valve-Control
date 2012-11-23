@@ -9,6 +9,7 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 <!DOCTYPE html>
 <html>
 	<head>
+<!--This is the page in which one can view the contents of the database in a view-only mode. There is also an option to edit-->
 		<meta charset="UTF-8">
 		<title>Port Database</title>
 		<style>
