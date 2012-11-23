@@ -1,0 +1,40 @@
+import socket
+import time
+import sqlite3
+import sys
+import decimal as d
+import haversine
+conn = sqlite3.connect("portLocations.db")
+cursor = conn.cursor()
+sql = "SELECT lat,lon FROM port_locations"
+rows = cursor.execute(sql)
+listOfPorts = rows.fetchall()
+
+
+while True:
+    try:
+        s = socket.socket()
+        s.connect(('172.16.107.53',4))
+        time.sleep(.5)
+        list = s.recv(4096).split(",")
+        lat = (d.Decimal(list[3][0] + list[3][1]) + d.Decimal(list[3][2:len(list[3])])/60)
+        lon = (d.Decimal(list[5][0]+list[5][1]+list[5][2]) + d.Decimal(list[5][3:len(list[5])])/60)
+
+        if list[4].upper() == "S":
+            lat = -1 * lat
+
+        if list[6].upper() == "W":
+            lon = -1 * lon
+
+        currentPosition = lat,lon
+        s.close()
+
+        for x in listOfPorts:
+            port = d.Decimal(x[0]),d.Decimal(x[1])
+            print haversine.distance(currentPosition,port)
+
+    except:
+        print "problem\n"
+        sys.exit(0)
+#        pass
+

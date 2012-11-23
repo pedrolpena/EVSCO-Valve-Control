@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<htmllang="en">
+	<head>
+		<script src="jquery.mobile-1.4.5.js" type="text/javascript"></script>
+		<script src="jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+		<script src="jquery-1.11.3.min.js" type="text/javascript"></script>
+		<meta charset="UTF-8"></meta>			
+		<title>Port Valve Control</title>
+		<?php
+			if(isset($_POST['valveOpen'])){
+				exec("sudo python /home/pi/programs/open.py");
+			}
+			if(isset($_POST['valveClose'])){
+				exec("sudo python /home/pi/programs/close.py");
+			}
+		?>
+	</head>
+	<body>
+		<div data-role="page" id="page1" align="center">
+			<div data-role="header">
+				<h1>Port Valve Control</h><br>
+			</div>
+			<div data-role="main">
+				<form method="post">
+					<button id="valveOpen" class="ui-btn ui-btn-inline">Open</button>
+					<button id="valveClose" class="ui-btn ui-btn-inline">Close</button>
+				</form>
+				<br>
+				<a href="#page2" class"ui-btn ui-btn-inline">View Database</a>
+				<a href="#page2" class"ui-btn ui-btn-inline">Edit Datavase</a>
+			</div>
+		</div>
+		<div data-role="page" id="page2" align="center">
+			<h1>Database</h1>
+		</div>
+	</body>
+</html>
