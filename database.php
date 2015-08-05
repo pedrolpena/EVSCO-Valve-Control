@@ -45,7 +45,7 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 				<ul>
 					<li>
 <!--these are "back to home" and edit options for the user (edit meaning edit the information within the database)-->
-						<a href="index.html"><button type="button">Back to Home</button></a>
+						<a href="index.php"><button type="button">Back to Home</button></a>
 						<a href="edit_database.php"><button type="button">Edit</button></a>
 					</li>
 				</ul>

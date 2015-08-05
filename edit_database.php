@@ -53,7 +53,7 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 			<div align="center" data-role="main">
 				<ul>
 					<li>
-						<a href="index.html"><button type="button">Back to Home</button></a>
+						<a href="index.php"><button type="button">Back to Home</button></a>
 						<a href="database.php"><button type="button">View Only</button></a>
 					</li>
 				</ul>

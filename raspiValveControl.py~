@@ -4,8 +4,9 @@ import sqlite3
 import sys
 import decimal as d
 import haversine
-import EvscoValveControl as valve
-conn = sqlite3.connect("/var/www/portLocations.db")
+import EvscoValveControl as valve\
+#This file name must be changed according to your file locations
+conn = sqlite3.connect("/home/pi/EVSCO-Valve-Control/portLocations.db")
 cursor = conn.cursor()
 sql = "SELECT lat,lon,radius,port_name FROM port_locations"
 rows = cursor.execute(sql)

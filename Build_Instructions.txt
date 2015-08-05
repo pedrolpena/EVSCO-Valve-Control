@@ -121,3 +121,13 @@ Step 2: Prepare the Raspbery Pi
 		sudo apt-get install php5 libapache2-mod-php5
 		/etc/init.d/apache2 restart (restarts apache)
 
+Step 3: Set up Files
+	--The files need to be moved to their proper places on the computer in order for the valve to function. These are the commands:
+		sudo cp /home/pi/EVSCO-Valve-Control/index.php /var/www (moves index.php to apache2 server)
+		sudo cp /home/pi/EVSCO-Valve-Control/database.php /var/www (moves database.php)
+		sudo cp /home/pi/EVSCO-Valve-Control/edit_database.php /var/www (moves edit_database.php)
+		sudo cp /home/pi/EVSCO-Valve-Control/portLocations.db /var/www (moves portLocations.db database)
+		rm /var/www/index.html (removes default index file)
+	-- Be sure that the file EVSCO-Valve-Control is in the /home/pi folder
+
+

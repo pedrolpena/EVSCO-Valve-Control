@@ -43,7 +43,7 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 //This is a block that opens the valve if the open form button is pressed. It also relays the status of the valve.
 					if(isset($_GET['valveOpen'])){
 //this file name must be changed according to the locations of "open.py" and the python application that is running "open.py"
-						$output=shell_exec("/usr/bin/python /home/pi/programs/open.py");
+						$output=shell_exec("/usr/bin/python /home/pi/EVSCO-Valve-Control/open.py");
 						$status="Open";
 						$hello="<h3>Valve Status: " . $status . "</h3>";
 						echo $hello;
@@ -51,7 +51,7 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 //This is a block that closes the valve is the Close button is pressed. It also relays the status of the valve.
 					if(isset($_GET['valveClose'])){
 //Thi file name must be changes according to the locations of "close.py" and the python application that is running "close.py"
-						shell_exec("/usr/bin/python /home/pi/programs/close.py");
+						shell_exec("/usr/bin/python /home/pi/EVSCO-Valve-Control/close.py");
 						$status="Closed";
 						$hello="<h3>Valve Status: " . $status . "</h3>";
 						echo $hello;
