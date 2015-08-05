@@ -11,11 +11,11 @@ Description: Open and Close an EVSCO valve based on geographical position in rel
 		The valve should open in open ocean, and close when it gets within range of a port in the database.
 		The valve can be controlled remotely over the network using a web server.
 
-Hardware: The project requires an EVSCO S2-PP-RE13 valve, a Raspberry Pi, a PiFace add-on, an 8 GB SD Card, and an ethernet cable
+Hardware: The project requires an EVSCO S2-PP-RE13 valve, a Raspberry Pi, a PiFace Digital add-on, an 8 GB SD Card, and an ethernet cable
 	The valve is necessary because it is going to be controlled to keep instruments from getting contaminated by polluted port water.
 	The Raspberry pi will be running the programs that control the valve as well as hosting the apache web server.
 	The 8GB SD Card serves as the Raspberry pi's hard drive and will hold all of the programs.
-	The PiFace is an addition to the pi that is necessary for the project.
+	The PiFace Digital is an addition to the pi that allows it to recieve/send information from/to the outside world, i.e. sensors, lights, buttons, motors.
 	The Ethernet cable will connect the Pi to the network to make the web server accessible remotely so that the valve can be controlled by any computer on the network.
 Software:
 	Raspbian: An operating system for the user to interact with the hardware
@@ -55,6 +55,69 @@ Possible Necessary Changes to files:
 
 Step 1: Prepare the SD Card
 	Preparing the SD card sets up the operating system for the Pi. This step requires a functional computer with an SD card slot and internet access.
-	-- Navigate on your browser to http://www.raspberrypi.org/downloads and download the raspbian torrent. 
+	-- Plug the SD card into the computer's SD card slot
+	-- Find the location of the SD Card by typing these commands into the terminal:
+		ls /mnt (will give you a list of the directories in the /mnt directory
+		cd /mnt/sdc1 (a command that allows you to work within the /mnt/sdc1 folder so that changes only affect that folder)
+		ls /dev/sd (will give you a list of directories or files within the dev folder that begin with sd)
+			the output of the previous command will give a list similar to: sda  sda1 sda2 sdb sdb1 sdb2
+			This output refers to the different drives mounted to the computer. sda is always the computer's hard drive NEVER write to sda
+			The SD card we are working with is most likely sdb. sdb1 and sdb2 are divisions within sdb. We need to work with the whole thing, so use sdb.
+		Now we know that the card's file is sdb.
+	-- Navigate on your browser to http://www.raspberrypi.org/downloads and download the raspbian torrent. Downloading the file may take a while, so be patient.
 	-- Once you open the installer that was just downloaded, allow it to torrent the raspbian file. This may take a while, depending on the speed of internet and the accessibility of peers to torrent from.
-	
+	-- Once the raspbian image is downloaded, make note of the image's location. 
+	-- Enter these commands into the terminal of your computer:
+		cd~ (This takes you to the home directory)
+		pwd (to check that you are in the home directory)
+		ls (to give a list of files and directories in the home directory so that you know that the image is in the home directory. The file should look like: "2015-05-05-raspbian-wheezy.img" or some variation, depending on the version)
+		sudo dd if=./2015-05-05-raspbian-wheezy.img (or some variation) of=/dev/sdb (this actually moves the image into the sd card. you may be asked to enter your computer's password)
+	-- Transferring the image may take a while, so be patient
+	-- Unmount the SD card (just pull it out) and plug it into the SD card slot 
+
+Step 2: Prepare the Raspbery Pi
+	-- Make sure that the raspberry pi has all the hardware it needs to boot up:
+		monitor (via HDMI port)
+		mouse (via usb port)
+		keyboard (via usb port)
+		SD card (via sd card slot)
+		micro usb power source (via micro usb port)
+		ethernet cable (via ethernet cable port)
+	-- Since it is the first boot, you will arrive at a blue screen with options. It is possible to change the login information, language, etc. Use the keyboard to select the language options
+		-- The default language is UK English, but it is important to switch to US english. There will be a white box, and scroll until you reach an option similar to en-US-UTF-8. Press the spacebar to select this language. Go up to en-UK-XXXX where you will see a star within brackets, and press the space bar. This de-selects UK english.
+	-- Tab down to <OK> and the pi should boot. Eventrually it will ask for a login. The default is pi. Press enter and you will be prompted for a password, which should be raspberry.
+	-- Update and upgrade the pi so that the desktop is functional by entering these commands into the terminal:
+		sudo apt-get update (this updates the computer's list of applications)
+		sudo apt-get upgrade (this upgrades the computer's desktop based on the applications)
+	-- You are still within the terminal. To get to the desktop, enter the command "startx"
+		If the User Interface seems to have no navigation bar, restart the pi.
+		type these commands:
+			sudo apt-get purge openbox
+			sudo apt-get purge lxde
+			sudo apt-get install lxde
+			sudo apt-get install openbox
+			sudo apt-get install xfce4
+			sudo apt-get install xfce4-goodies
+			startxfce4
+		Now, the desktop should work
+	--open the terminal and type these commands to get the necessary files
+		sudo apt-get install git
+		clone https://github.com/barbaragroh/EVSCO-Valve-Control
+	--test the piFace by entering these commands
+		sudo apt-get install python{,3}-pifacedigitalio
+		sudo apt-get install python3-pifacedigital-emulator
+		sudo raspi-config
+		(navigate to advanced options, SPI and select yes and select always run SPI kernel)
+		sudo reboot (will restart the pi)
+		startxfce4
+		(open the terminal again)
+		python3 /usr/share/doc/python3-pifacedigitalio/examples/blink.py (this tests the piface)
+		(if no errors pop up, enter Ctrl C to end the test)
+	-- Open the piface emulator. In the terminal type:
+		pifacedigital-emulator
+		(enable output controls and play with the numbers to make sure the corresponding LEDs come on)
+	-- Set up the web server. Apache 2 must be installed, along with the php plugin. Terminal Commands:
+		sudo apt-get install apache2
+		sudo apt-get install php5 libapache2-mod-php5
+		/etc/init.d/apache2 restart (restarts apache)
+
