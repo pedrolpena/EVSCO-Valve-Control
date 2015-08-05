@@ -130,4 +130,22 @@ Step 3: Set up Files
 		rm /var/www/index.html (removes default index file)
 	-- Be sure that the file EVSCO-Valve-Control is in the /home/pi folder
 
-
+Step 4: Opening the Web Server
+	-- Find the IP Adress of the Pi. Terminal Command:
+		ifconfig (the IP Address will look similar to "10.16.200.140")
+	-- Open the browser of another computer on the same network as the pi and type the Pi's IP Address into the address bar. The opening page should appear.
+	-- Try clicking the "view ports" or "edit ports" buttons. when the page appears, does it have the table of ports?
+		If so, then continue to the next step
+		If not, then follow these steps
+			-- check the error log by entering this command into the Pi:
+				tail /var/log/apache2/error.log
+			-- the error should contain "PHP Fatal error: Class 'SQLite3' not found in"
+			-- This means that SQLite is not installed. Enter the following commands into the terminal
+				sudo apt-get install php5-cli php5-dev make
+				sudo apt-get install libsqlite3-0 libsqlite3-dev
+				sudo apt-get install php5-sqlite
+			-- now reload the browser on the computer. The tables should appear. If they do not, enter these commands:
+				cd /var/www
+				sudo chown www-data:www-data portLocations.db
+	-- Try adding, editing and deleting indeces to the database
+	
