@@ -120,14 +120,6 @@ Step 2: Prepare the Raspbery Pi
 		sudo apt-get install apache2
 		sudo apt-get install php5 libapache2-mod-php5
 		/etc/init.d/apache2 restart (restarts apache)
-Hardware: The project requires an EVSCO S2-PP-RE13 valve, a Raspberry Pi, a PiFace Digital add-on, an 8 GB SD Card, and an ethernet cable
-        The valve is necessary because it is going to be controlled to keep instruments from getting contaminated by polluted port water.
-        The Raspberry pi will be running the programs that control the valve as well as hosting the apache web server.
-        The 8GB SD Card serves as the Raspberry pi's hard drive and will hold all of the programs.
-        The PiFace Digital is an addition to the pi that allows it to recieve/send information from/to the outside world, i.e. sensors, lights, buttons, motors.
-        The Ethernet cable will connect the Pi to the network to make the web server accessible remotely so that the valve can be controlled by any computer on the network.
-Software:
-
 
 Step 3: Set up Files
 	--The files need to be moved to their proper places on the computer in order for the valve to function. These are the commands:
@@ -162,32 +154,4 @@ Step 4: Opening the Web Server
 			sudo chown www-data:www-data /var/www/*
 			sudo chmod 666 /var/www/*
 		--Try adding, editing and deleting again. The functions should now function.
-	-- Now go to the home page and try opening/closing the valve. The valve is not connected yet, but the Pi should still make a clicking sound
-		If the pi makes a sound, the valve will work, and move on to the next step
-		If the pi is silent, follow these steps
-			-- The problem may be one of two. Enter this command into the terminal:
-				tail /var/log/apache2/error.log
-					If the last error contains "Have you enabled the SPI module?" the problem is with permissions (becuase we have already enabled SPI)
-			-- Also try entering this command:
-				python /home/pi/EVSCO-Valve-Control/close.py
-					If there is an error that contains "No module named" followed by a name that contains "piface," the problem is a naming problem
-			-- It is possible to have both problems, so try both commands.
-			-- If the problem is with permissions:
-				sudo chmod 666 /home/pi/EVSCO-Valve-Control/* (setting all files in the directory to readable and writable settings)
-				sudo usermod -a -G spi www-data (adding spi to the www-data groups)
-				sudo usermod -a -G gpio www-data (adding gpio to the www-data groups)
-				sudo service apache restart (restarting apache)
-			-- If the problem is with naming:
-				-- PiFace may have changed the name of the module, so one of the python scripts needs to be updated. 
-				   Previous names have been "piface.pfio" and "pifacedigitalio", so find the new name online or by opening one of the python scripts that came with the piface download
-				-- Enter this command
-					gedit /home/pi/EVSCO-Valve-Control/EvscoValveControl.py
-						Now, this is a short python script that may have a problem. 
-						It contains a line "import piface.pfio as pfio" or "import pifacedigitalio as pfio"
-						Change the second word ("piface.pfio" or "pifacedigitalio") to the new module name
-				-- Try entering this command again:
-					python /home/pi/EVSCO-Valve-Control/close.py
-						It should work.
-			
-	-- The web server is working! Now, it is time to set up the valve
-				
+	-- 
