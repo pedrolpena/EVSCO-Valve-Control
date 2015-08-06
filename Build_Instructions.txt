@@ -147,5 +147,10 @@ Step 4: Opening the Web Server
 			-- now reload the browser on the computer. The tables should appear. If they do not, enter these commands:
 				cd /var/www
 				sudo chown www-data:www-data portLocations.db
-	-- Try adding, editing and deleting indeces to the database
-	
+	-- Try adding, editing and deleting indeces to the database. If the functions work, then move to the next step, if not, follow these steps:
+		--The issue is most likely a permissions problem. Type these commands into the terminal:
+			sudo chown root:www-data /var/www
+			sudo chmod -R 777 /var/www
+			sudo chown www-data:www-data /var/www/*
+			sudo chmod 666 /var/www/*
+		--Try adding, editing and deleting again. The functions should now function.
