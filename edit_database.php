@@ -63,12 +63,12 @@ NNN   NNN  OOOOOOOOO  AAA   AAA  AAA   -->
 						$db = new SQLite3("/var/www/portLocations.db");
 						$result= $db->query("SELECT * FROM port_locations");
 						$products=array();
-						echo "<table><tr><th>Port Name</th><th>Latitude</th><th>Longitude</th><th>Radius (km)</th></tr>";
+						echo "<table><tr><th>Port Name</th><th>Latitude</th><th>Longitude</th><th>Radius (km)</th><th>Delete</th></tr>";
 						while($res=$result->fetchArray(SQLITE3_ASSOC)){
 //give each cell a name corresponding to the row number (the variable i in the next line)
 							$i=$res['key'];
 							$name="row" . $i;
-							echo "<tr><td><input id='port_name" . $name . "' name='port_name" . $name . "' type='text' value='". $res['port_name'] . "'></input></td><td><input id='lat" . $name . "' name='lat" . $name . "' type='text' value='" . $res['lat']."'></input></td><td><input id='lon" . $name . "' name='lon" . $name . "' type='text' value='". $res['lon']. "'></input></td><td><input id='radius" . $name . "' name='radius" . $name . "' type='text' value='" . $res['radius'].  "'></input></td><td><input style='width:15%; height:15%' value='" . $i . "' name='delete" . $name . "' type='checkbox'></input></td></tr>";
+							echo "<tr><td><input id='port_name" . $name . "' name='port_name" . $name . "' type='text' value='". $res['port_name'] . "'></input></td><td><input id='lat" . $name . "' name='lat" . $name . "' type='text' value='" . $res['lat']."'></input></td><td><input id='lon" . $name . "' name='lon" . $name . "' type='text' value='". $res['lon']. "'></input></td><td><input id='radius" . $name . "' name='radius" . $name . "' type='text' value='" . $res['radius'].  "'></input></td><td><input style='width:100%;' value='" . $i . "' name='delete" . $name . "' type='checkbox'></input></td></tr>";
 //I'm trying to delete stuff, so these are variables that allow the if() below to work
 							$updated="UPDATE port_locations SET de_lete='" . $i . "' WHERE key='" . $i . "'";
 							$db->exec($updated);
