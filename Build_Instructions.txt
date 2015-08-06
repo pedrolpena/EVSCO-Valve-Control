@@ -190,4 +190,59 @@ Step 4: Opening the Web Server
 						It should work.
 			
 	-- The web server is working! Now, it is time to set up the valve
-				
+	
+Step 5: Setting up the Valve
+	--It is time to connect the valve to the pi!
+  	--This is a model of the pi with the PiFace
+    	                                                                __
+		                        ______________________________  ||  _______________
+                                       |__ ________                   ||  ||_______________|
+ Green Jumper to NO2 thin red (+)wire->|o||NO1     |                  ||__||  O  O  O  O   |
+                Wire without writing*->|o||Common1 |   _                                   |
+                  Green Jumper to NC2->|o||NC1_____|  (_)                             _____|
+                                       |_  ________                    ____          |___
+                  Green Jumper to NO1->|o||NO2     |                  |    |         |   | }
+                   Wire with writing*->|o||Common2 |             ____ |    |         |   | }USB Ports
+Green Jumper to NC1; Red Jumper to 0V->|o||NC2_____|            |    ||    |         |___| }
+                                       |__                      |    ||    |    _____|
+Red jumper to NC2 Thin black (-) wire->|o|0V                    |____||____|   |_____
+                                Empty->|o|   __ __ __ __ __ __ __ __           |     | }
+                                Empty->|o|5V_||_||_||_||_||_||_||_||           |     | }Ethernet Cable Port
+                                       |___|______________________|____________|_____| 
+                                                               HDMI PORT
+			  	          	                   C
+                                                                   A
+                                                                   B
+                                                                   L
+                                                                   E
+
+	--Wiring for the inside of the EVSCO Valve: 
+		*It doesn't matter if the wire has writing or not, but the same wire that starts in the slot on the valve labeled for the wire with writing must end in the slot labeled for wire with writing on the Pi
+
+                       ______|_|___________________
+                      |__   |   |Wires for motor   |
+                      |6|   |___|               _|_|
+                      |5|    _|_     _________  | ||
+                      |4|    | |    |_________| |_||
+    Wire with writing*|3|    |_|    |_________|  | |
+ Wire without writing*|2|     |     |_________|    |
+                      |1|___________|_________|____|
+                      
+                     
+                     
+	WARNING: If the wire with/without writing are wired wrong, the open and close functions for the valve will be backwards, and non of the code will work properly
+
+	--Test the valve to make sure it works
+
+
+
+	FFFFFFFFFFF   IIII   NNNN     NNNN
+        FFFFFFFFFFF   IIII   NNNNN    NNNN
+        FFFF          IIII   NNNNNN   NNNN
+        FFFF          IIII   NNNNNNN  NNNN 
+        FFFFFFFFF     IIII   NNNNNNNN NNNN
+        FFFFFFFFF     IIII   NNNN NNNNNNNN
+        FFFF          IIII   NNNN  NNNNNNN
+        FFFF          IIII   NNNN   NNNNNN
+        FFFF          IIII   NNNN    NNNNN
+        FFFF          IIII   NNNN     NNNN
