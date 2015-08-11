@@ -233,6 +233,31 @@ Red jumper to NC2 Thin black (-) wire->|o|0V                    |____||____|   |
 	WARNING: If the wire with/without writing are wired wrong, the open and close functions for the valve will be backwards, and non of the code will work properly
 
 	--Test the valve to make sure it works
+Step 6: Connecting to AMVERSEAS
+	--This is the program that will send the Pi GPS locations from a computer within the ship
+	--Find the computer's IP address, and open raspiValveControl.py on the Pi
+	--Change the given IP address to the IP address of the computer on the ship. Make sure that both the computer and Pi are connected to the same network
+	--download AMVERSEAS if the computer does not already have it
+	--on the SEAS control, open the SEAS Tranceiver Interface
+	--go to the Transmitter tab and make sure that Socket-Server configuration is on
+	--set the Socket-Server port numer to 4
+		--if the port number must be set to any number other than 4, that must also be changed on the raspiValveControl.py program, next to where the computer's IP address is located
+	--restart the Transceiver interface, and the valve should now be working
+
+Step 7: Reconfigure Pi
+	--The pi needs to be able to log in automatically and launch the tracking program as soon as it powers up
+	--In the terminal, enter:
+		sudo nano /etc/inittab
+	--find this line: "1:2345:respawn:/sbin/getty 115200 tty1" and insert a "#" at the beginning
+	--just below the line, add a new line that reads:
+		1:2345:respawn:/bin/login/ -f pi tty1 </dev/tty1 >/dev/tty1 2>&1
+	--save and exit the editor
+	--In the terminal, enter:
+		sudo nano /etc/profile
+	-- add the following line to the end of the file:
+		. /home/pi/EVSCO-Valve-Control/raspiValveControl.py
+	-- save and exit the editor
+	-- if you turn the Pi off, then on again, it should start running the program automatically
 
 
 
